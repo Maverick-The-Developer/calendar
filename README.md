@@ -1,36 +1,21 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 칼렌다 컴포넌트.
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+nextjs 프로젝트를 생성하고, 퍼블이 넘겨줄 만한 내용만 적용한 상태입니다.  
+프로젝트를 다운 받은 후, 프로젝트 디렉토리에서,
+```shell
+npm install
 ```
+을 실행하여 필요한 패키지를 다운로드 후,
+```shell
+npm run dev
+```
+로 실행합니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# ToDo 입니다.
+1. 상단의 2023년 11월은 현재 날짜의 월을 표시하세요.
+2. 좌,우 꺽쇠(chevron)를 클릭하면 이전달, 다음달을 표시할 수 있도록 프로그래밍 하세요.
+3. 12월에서 다음달은 그 다음해의 1월, 1월에서 이전달은 그 이전 해의 12월이 되어야 합니다.
+4. 해당 월을 표시할 때, 본회의 일정, 위원회 일정을 해당 날짜에 표시합니다.
+5. 현재 퍼블상으로 11월 15일이 today로 지정됩니다만, 프로그래밍 시에는 실제 오늘 날짜를 적용하여야 합니다.
+6. html코드를 그대로 사용하여도 되고, 컴포넌트化 하여 쪼개도 됩니다.
+7. css 형식 또한 최근 추가된 문법으로 작성하였으니 참고하세요.

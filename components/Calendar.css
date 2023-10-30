@@ -1,0 +1,117 @@
+.Calendar {
+  min-width: 300px;
+  border: 1px solid #dddddd;
+  & > div {
+    width: 100%;
+  }
+}
+.calendar-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  height: 60px;
+  padding-inline: 0.5rem;
+  & button,
+  & p {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  & button {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    font-size: inherit;
+    transition: scale 200ms ease;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.day-name-bar {
+  width: 100%;
+  height: 40px;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  & p {
+    float: left;
+    width: calc(100% / 7);
+    height: 100%;
+    border-right: 1px solid #dddddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f9fe;
+    &:last-child {
+      border-right: none;
+    }
+  }
+}
+
+.text-icon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  line-height: 13px;
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  border-radius: 2px;
+  margin-inline: 0.1rem;
+  &.bon {
+    background-color: #7f9760;
+    &::before {
+      content: '본';
+    }
+  }
+  &.wi {
+    background-color: #47a08a;
+    &::before {
+      content: '위';
+    }
+  }
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  & > div {
+    width: 100%;
+    height: 50px;
+    padding: 1px 3px;
+    border-right: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+    &.today {
+      background-color: #f1f9fe;
+    }
+    & > span {
+      display: block;
+      width: 100%;
+      height: 50%;
+      font-size: 0.85rem ;
+    }
+  }
+  & > div:nth-child(7n) {
+    color: blue;
+    border-right: none;
+  }
+  & > div:nth-child(7n+1) {
+    color: red;
+  }
+}
+
+.calendar-footer {
+  height: 32px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 0.7rem;
+  gap: 0.5rem;
+  padding-inline: 0.5rem;
+}
