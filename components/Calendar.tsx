@@ -61,7 +61,7 @@ function CalendarBody({
   plenary: string[]
   commitee: string[]
 }) {
-  const [year, monthIndex, date] = splitThisMonth(thisMonth)
+  const [year, monthIndex, _] = splitThisMonth(thisMonth)
   const firstDate = new Date(year, monthIndex, 1)
   const firstDay = firstDate.getDay()
   const lastDate = new Date(year, monthIndex + 1, 0)
