@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Noto_Sans_KR } from 'next/font/google'
 import './globals.css'
 
-const notoSansKr = Noto_Sans_KR({ subsets: ['latin'], weight: ['300', '400', '500', '700'] }) // 300:light, 400:regular, 500:medium and 700:bold
+const notoSansKr = Noto_Sans_KR({ subsets: ['latin'], weight: ['400', '500', '700'] }) // 400:regular, 500:medium and 700:bold
 
 export const metadata: Metadata = {
   title: 'Calendar',

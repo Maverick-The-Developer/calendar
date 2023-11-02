@@ -1,22 +1,30 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import './Calendar.css'
 
-type Props = {}
-
-export default function Calendar({}: Props) {
-
-  const plenary = ['2023-10-20', '2023-11-13', '2023-11-16']  // 본회의 일정
+export default function Calendar() {
+  const plenary = ['2023-10-20', '2023-11-13', '2023-11-16'] // 본회의 일정
   const commitee = ['2023-10-30', '2023-11-13', '2023-11-19'] // 위원회 일정
+  const [currentMonth, setCurrentMonth] = useState<string>(dateToString(new Date()))
+
+  function navMonth(step: number) {
+    const [year, monthIndex, _] = splitThisMonth(currentMonth)
+    const newMonth = new Date(year, monthIndex + step, 1)
+    setCurrentMonth(dateToString(newMonth))
+  }
 
   return (
     <div className='Calendar'>
       <div className='calendar-title'>
-        <button>
+        <button onClick={() => navMonth(-1)}>
           <FaChevronLeft />
         </button>
-        <p>2023년 11월</p>
-        <button>
+        <p>
+          {splitThisMonth(currentMonth).at(0)}년 {splitThisMonth(currentMonth).at(1)! + 1}
+          월
+        </p>
+        <button onClick={() => navMonth(+1)}>
           <FaChevronRight />
         </button>
       </div>
@@ -29,138 +37,7 @@ export default function Calendar({}: Props) {
         <p>금</p>
         <p>토</p>
       </div>
-      <div className='calendar-body'>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span>1</span>
-        </div>
-        <div>
-          <span>2</span>
-        </div>
-        <div>
-          <span>3</span>
-        </div>
-        <div>
-          <span>4</span>
-        </div>
-        <div>
-          <span>5</span>
-        </div>
-        <div>
-          <span>6</span>
-        </div>
-        <div>
-          <span>7</span>
-        </div>
-        <div>
-          <span>8</span>
-        </div>
-        <div>
-          <span>9</span>
-        </div>
-        <div>
-          <span>10</span>
-        </div>
-        <div>
-          <span>11</span>
-        </div>
-        <div>
-          <span>12</span>
-        </div>
-        <div>
-          <span>13</span>
-          <p className='text-icon bon'></p>
-          <p className='text-icon wi'></p>
-        </div>
-        <div>
-          <span>14</span>
-        </div>
-        <div className='today'>
-          <span>15</span>
-        </div>
-        <div>
-          <span>16</span>
-          <p className='text-icon bon'></p>
-        </div>
-        <div>
-          <span>17</span>
-        </div>
-        <div>
-          <span>18</span>
-        </div>
-        <div>
-          <span>19</span>
-          <p className='text-icon wi'></p>
-        </div>
-        <div>
-          <span>20</span>
-        </div>
-        <div>
-          <span>21</span>
-        </div>
-        <div>
-          <span>22</span>
-        </div>
-        <div>
-          <span>23</span>
-        </div>
-        <div>
-          <span>24</span>
-        </div>
-        <div>
-          <span>25</span>
-        </div>
-        <div>
-          <span>26</span>
-        </div>
-        <div>
-          <span>27</span>
-        </div>
-        <div>
-          <span>28</span>
-        </div>
-        <div>
-          <span>29</span>
-        </div>
-        <div>
-          <span>30</span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-        <div>
-          <span></span>
-        </div>
-      </div>
+      <CalendarBody thisMonth={currentMonth} plenary={plenary} commitee={commitee} />
       <div className='calendar-footer'>
         <p>
           <span className='text-icon bon'></span>
@@ -174,3 +51,102 @@ export default function Calendar({}: Props) {
     </div>
   )
 }
+
+function CalendarBody({
+  thisMonth,
+  plenary,
+  commitee,
+}: {
+  thisMonth: string
+  plenary: string[]
+  commitee: string[]
+}) {
+  const [year, monthIndex, date] = splitThisMonth(thisMonth)
+  const firstDate = new Date(year, monthIndex, 1)
+  const firstDay = firstDate.getDay()
+  const lastDate = new Date(year, monthIndex + 1, 0)
+  const tempArray = []
+
+  let dateNum = 1
+  for (let i = 0; i < 42; i++) {
+    if (i < firstDay) {
+      tempArray.push('')
+    } else if (dateNum > lastDate.getDate()) {
+      tempArray.push('')
+    } else {
+      const tempMonth = (firstDate.getMonth() + 1).toString().padStart(2, '0')
+      const tempDate = dateNum.toString().padStart(2, '0')
+      const tempDateStr = `${year}-${tempMonth}-${tempDate}`
+      tempArray.push(tempDateStr)
+      dateNum++
+    }
+  }
+
+  return (
+    <div className='calendar-body'>
+      {tempArray.map((date, idx) => {
+        return (
+          <div key={idx} className={isToday(date) ? 'today' : 'null'}>
+            <span>{dateOnly(date)}</span>
+            {plenary.includes(date) ? <p className='text-icon bon'></p> : null}
+            {commitee.includes(date) ? <p className='text-icon wi'></p> : null}
+          </div>
+        )
+      })}
+    </div>
+  )
+} // end of function CalendarBody(props)
+
+/**
+ *
+ * @param date : Date
+ * @returns string ex: '2023-05-05'
+ */
+function dateToString(date: Date): string {
+  const tempYear = date.getFullYear().toString()
+  const tempMonth = (date.getMonth() + 1).toString().padStart(2, '0')
+  const tempDate = date.getDate().toString().padStart(2, '0')
+  return `${tempYear}-${tempMonth}-${tempDate}`
+}
+
+/**
+ *
+ * @param thisMonth : ex '2023-01-01'
+ * @returns array of numbers : ex [2023, 1, 1]
+ */
+function splitThisMonth(thisMonth: string) {
+  const year = parseInt(thisMonth.split('-').at(0)!, 10)
+  const monthIndex = parseInt(thisMonth.split('-').at(1)!, 10) - 1
+  const date = parseInt(thisMonth.split('-').at(2)!, 10)
+  return [year, monthIndex, date]
+}
+
+/**
+ *
+ * @param dateString ex) '2023-04-01
+ * @returns int ex) 1
+ */
+function dateOnly(dateString: string) {
+  const tempArray = dateString.split('-')
+  if (tempArray && tempArray.length == 3) {
+    const tempNum = parseInt(tempArray[2], 10)
+    if (isNaN(tempNum)) {
+      return ''
+    } else {
+      return tempNum.toString()
+    }
+  } else {
+    return ''
+  }
+}
+
+/**
+ * 
+ * @param dateStr ex) '2023-10-05'
+ * @returns true or false
+ */
+function isToday(dateStr: string): boolean {
+  const todayStr = dateToString(new Date())
+  return todayStr === dateStr
+}
+
